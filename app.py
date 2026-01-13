@@ -4,7 +4,12 @@ import google.genai as genai
 
 st.title("Study Buddy Quiz Generator")
 
-api_key = st.text_input("Enter your Google Gemini API Key:", type="password")
+try:
+    # Get the API key from the secrets
+    api_key = st.secrets["GEMINI_API_KEY"]
+except (KeyError, FileNotFoundError):
+    # If the secret is not found, fall back to the text input
+    api_key = st.text_input("Enter your Google Gemini API Key:", type="password")
 notes = st.text_area("Paste your study notes here:")
 button = st.button("Generate Quiz")
 
